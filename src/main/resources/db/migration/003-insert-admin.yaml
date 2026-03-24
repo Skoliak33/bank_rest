@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-insert-admin
+      author: Maxim Stepanov
+      comment: "Default admin user (password: admin123)"
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: admin@bank.com
+              - column:
+                  name: password
+                  value: "$2a$10$Np1AfJLSa2cnDE4QSd7TTOqDh46qET2iLF0yTkROe0wXSe4skJkkK"
+              - column:
+                  name: full_name
+                  value: Administrator
+              - column:
+                  name: role
+                  value: ROLE_ADMIN
