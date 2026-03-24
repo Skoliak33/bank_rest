@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bankcards}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db/migration/db.changelog-master.yaml
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:dGhpc0lzQVZlcnlMb25nU2VjcmV0S2V5Rm9ySldUVG9rZW5HZW5lcmF0aW9uMTIzNDU2Nzg5MA==}
+    expiration-ms: ${JWT_EXPIRATION:86400000}
+  encryption:
+    aes-key: ${AES_KEY:YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=}
+
+resilience4j:
+  ratelimiter:
+    instances:
+      loginRateLimiter:
+        limit-for-period: 5            # максимум 5 попыток
+        limit-refresh-period: 60s      # за 60 секунд
+        timeout-duration: 0s           # не ждать, сразу отказ
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true    # /actuator/health/liveness + /actuator/health/readiness
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
