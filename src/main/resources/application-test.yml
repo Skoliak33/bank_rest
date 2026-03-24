@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  liquibase:
+    enabled: false
+
+app:
+  jwt:
+    secret: dGVzdFNlY3JldEtleUZvclRlc3RpbmdQdXJwb3Nlc09ubHkxMjM0NTY3ODkwMTIzNDU2Nzg5MA==
+    expiration-ms: 3600000
+  encryption:
+    aes-key: dGVzdEFFU0tleUZvclRlc3RpbmdPbmx5MTIzNDU2Nzg=
+
+resilience4j:
+  ratelimiter:
+    instances:
+      loginRateLimiter:
+        limit-for-period: 5
+        limit-refresh-period: 60s
+        timeout-duration: 0s
