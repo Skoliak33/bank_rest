@@ -1,0 +1,64 @@
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!-- Правила стиля кода проекта Bank Cards -->
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="warning"/>
+
+    <!-- Длина строки: максимум 150 символов -->
+    <module name="LineLength">
+        <property name="max" value="150"/>
+        <property name="ignorePattern" value="^package.*|^import.*|a].*"/>
+    </module>
+
+    <!-- Нет табуляции - только пробелы -->
+    <module name="FileTabCharacter"/>
+
+    <!-- Файл должен заканчиваться переводом строки -->
+    <module name="NewlineAtEndOfFile"/>
+
+    <module name="TreeWalker">
+        <!-- Импорты: без *, без дублей, без неиспользуемых -->
+        <module name="AvoidStarImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- Именование -->
+        <module name="TypeName"/>                   <!-- Классы: UpperCamelCase -->
+        <module name="MethodName"/>                 <!-- Методы: lowerCamelCase -->
+        <module name="ConstantName"/>               <!-- Константы: UPPER_SNAKE_CASE -->
+        <module name="LocalVariableName"/>          <!-- Локальные переменные: lowerCamelCase -->
+        <module name="MemberName"/>                 <!-- Поля класса: lowerCamelCase -->
+        <module name="ParameterName"/>              <!-- Параметры: lowerCamelCase -->
+        <module name="PackageName">                 <!-- Пакеты: только строчные -->
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+
+        <!-- Фигурные скобки -->
+        <module name="NeedBraces"/>                 <!-- if/else/for/while обязательно с {} -->
+        <module name="LeftCurly"/>                  <!-- { на той же строке -->
+        <module name="RightCurly"/>                 <!-- } на отдельной строке -->
+
+        <!-- Пробелы -->
+        <module name="WhitespaceAround">            <!-- Пробелы вокруг операторов -->
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyLambdas" value="true"/>
+        </module>
+        <module name="GenericWhitespace"/>          <!-- Пробелы в generics -->
+        <module name="NoWhitespaceBefore"/>         <!-- Нет пробела перед ; и , -->
+
+        <!-- Модификаторы в стандартном порядке: public static final -->
+        <module name="ModifierOrder"/>
+
+        <!-- Один класс верхнего уровня на файл -->
+        <module name="OneTopLevelClass"/>
+
+        <!-- Запрет пустых блоков catch без комментария -->
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="ignored"/>
+        </module>
+    </module>
+</module>
